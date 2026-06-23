@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    container_name: movie_be_express
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - movie_network
+    depends_on:
+      # đây là giá trị của biến HOST. muốn đặt như nào cũng được
+      - hostExpress
+
+  hostExpress: #đây là giá trị của biến HOST
+    image: mariadb:latest
+    container_name: movie_db
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - movie_network
+
+networks:
+  movie_network:
+    driver: bridge
+
+volumes:
+  db_data:

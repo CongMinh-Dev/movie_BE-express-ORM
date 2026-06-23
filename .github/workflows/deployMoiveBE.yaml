@@ -1,0 +1,44 @@
+name: Deploy movie_be
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    # 1. Chuyển sang self-hosted để dùng runner trên server của bạn
+    runs-on: self-hosted 
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Server
+        env:
+            # Đảm bảo bạn đã tạo các biến trong GitHub Settings > Secrets
+            HOST: ${{ secrets.HOST }}
+            MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+            MYSQL_USER: ${{ secrets.MYSQL_USER }}
+            MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+            MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+
+
+        run: |
+          # 2. Xóa hết nội dung cũ trong thư mục production (nếu cần sạch) 
+          # hoặc bạn có thể bỏ qua dòng này nếu muốn giữ file cũ
+          rm -rf /root/movie_be
+          
+          # 3. Copy source code vừa checkout từ github vào thư mục production
+          cp -r . /root/movie_be
+          
+          # 4. Di chuyển vào thư mục và chạy docker-compose
+          cd /root/movie_be/movie_BE-express-ORM
+          
+          # Tạo file .env tạm thời trên server để docker-compose đọc
+          echo "HOST=$HOST" > .env
+          echo "MYSQL_DATABASE=$MYSQL_DATABASE" > .env
+          echo "MYSQL_USER=$MYSQL_USER" > .env
+          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" > .env
+          echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > .env
+
+          
+          # 5. Dừng và khởi động lại container có --build là nó tự biết xóa thư viện cũ
+          docker compose down
+          docker compose up -d --build
