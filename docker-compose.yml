@@ -10,7 +10,7 @@ services:
     networks:
       - movie_network
     depends_on:
-      # đây là giá trị của biến HOST. muốn đặt như nào cũng được
+      # đây là giá trị của biến HOST. muốn đặt như nào cũng được vì cũng docker nên nó tự biết kết nối được
       - hostExpress
 
   hostExpress: #đây là giá trị của biến HOST

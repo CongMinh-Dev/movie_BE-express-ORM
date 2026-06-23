@@ -25,11 +25,12 @@ jobs:
           # hoặc bạn có thể bỏ qua dòng này nếu muốn giữ file cũ
           rm -rf /root/movie_be
           
-          # 3. Copy source code vừa checkout từ github vào thư mục production
+          # 3. Copy source code vừa checkout từ github vào thư mục production. nó chỉ copy những thằng con, 
+          # không phải copy rồi nén lại bên trong thư mục như lệnh git clone thông thường
           cp -r . /root/movie_be
           
           # 4. Di chuyển vào thư mục và chạy docker-compose
-          cd /root/movie_be/movie_BE-express-ORM
+          cd /root/movie_be
           
           # Tạo file .env tạm thời trên server để docker-compose đọc
           echo "HOST=$HOST" > .env
