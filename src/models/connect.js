@@ -12,8 +12,7 @@ const sequelize = new Sequelize(
     config.db_pass,
     {
         host: config.db_host,
-        dialect: config.db_dialect,
-        port: config.db_port
+        dialect: config.db_dialect
     })
 
 export default sequelize
