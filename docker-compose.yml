@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: movie_be_express
+    container_name: movie_be
     ports:
       - "8081:8080"
     env_file:
