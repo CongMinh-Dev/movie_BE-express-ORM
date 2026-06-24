@@ -2,7 +2,7 @@ version: "3.8"
 services:
   app:
     build: .
-    container_name: movie_be_express
+    container_name: movie_be
     ports:
       - "3000:3000"
     env_file:
@@ -14,8 +14,8 @@ services:
       - hostExpress
 
   hostExpress: #đây là giá trị của biến HOST
-    image: mariadb:latest
-    container_name: movie_db
+    image: nameImg_movie_be
+    container_name: movie_be
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
