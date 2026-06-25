@@ -42,9 +42,6 @@ jobs:
           echo "DB_PASSWORD=$DB_PASSWORD" >> .env
           echo "DB_DIALECT=$DB_DIALECT" >> .env
           echo "DB_PORT=$DB_PORT" >> .env
-
-
-
           
           # 5. Dừng và khởi động lại container có --build là nó tự biết xóa thư viện cũ
           docker compose down

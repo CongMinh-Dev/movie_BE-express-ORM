@@ -16,4 +16,8 @@ const sequelize = new Sequelize(
 export default sequelize
 
 // yarn add sequelize-auto
+// dùng:
 // yarn sequelize-auto -h localhost -d db_node41_food -u root -x 1234 -p 3306 --dialect mysql -o src/models -l esm
+
+// hoặc dùng:
+// npx sequelize-auto -h my-wordpress-db-1 -d movie -u react -x minh0967005146lxag -p 3306 --dialect mysql -o src/models -l esm
