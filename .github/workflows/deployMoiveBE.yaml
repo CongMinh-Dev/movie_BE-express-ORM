@@ -35,13 +35,13 @@ jobs:
           # 4. Di chuyển vào thư mục và chạy docker-compose
           cd /root/movie_be
           
-          # Tạo file .env tạm thời trên server để docker-compose đọc
-          echo "HOST=$HOST" > .env
-          echo "DB_DATABASE=$DB_DATABASE" > .env
-          echo "DB_USER=$DB_USER" > .env
-          echo "DB_PASSWORD=$DB_PASSWORD" > .env
-          echo "DB_DIALECT=$DB_DIALECT" > .env
-          echo "DB_PORT=$DB_PORT" > .env
+          # Tạo file .env tạm thời trên server để docker-compose đọc. phải có 2 dấu >>. 1 dấu là biến sau nó ghi đè biến trước
+          echo "HOST=$HOST" >> .env
+          echo "DB_DATABASE=$DB_DATABASE" >> .env
+          echo "DB_USER=$DB_USER" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "DB_DIALECT=$DB_DIALECT" >> .env
+          echo "DB_PORT=$DB_PORT" >> .env
 
 
 
