@@ -1,5 +1,5 @@
 services:
-  movieBE:
+  my_movie_be:
     build: .
     container_name: movie_be
     ports:
