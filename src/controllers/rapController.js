@@ -22,7 +22,7 @@ const layThongTinLichChieuHeThongRap = async (req, res) => {
                 as: 'lstCumRap',
                 include: [{
                     model: model.LichChieu,
-                    as: 'lstLichChieu', // Giả sử alias trong init-models là lstLichChieu
+                    as: 'lstLichChieu', // Giả sử alias trong init-models là lstLichChieu 
                     include: [{
                         model: model.Phim,
                         as: 'maPhim_Phim'
