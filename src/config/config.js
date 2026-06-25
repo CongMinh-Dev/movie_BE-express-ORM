@@ -16,5 +16,3 @@ export default {
 
 
 }
-
-console.log(process.env.DB_DATABASE)

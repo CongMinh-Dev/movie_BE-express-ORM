@@ -1,10 +1,10 @@
 services:
-  my_movie_be:
+  my_movie_be: #khai báo tên của image sẽ được tạo
     build: .
-    container_name: movie_be
+    container_name: movie_be #khai báo tên của container sẽ được tạo
     ports:
       - "8081:8080"
-    env_file:
+    env_file: #sử dụng environment nếu muốn truyền trực tiếp biến từ git vào
       - .env
     networks:
       - movie_network

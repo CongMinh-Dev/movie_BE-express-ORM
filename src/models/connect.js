@@ -12,12 +12,7 @@ const sequelize = new Sequelize(
         port: config.db_port
     })
 
-console.log("Debug Config:", {
-    database: config.db_database,
-    user: config.db_user,
-    dialect: config.db_dialect,
-    port: config.db_port
-});
+
 export default sequelize
 
 // yarn add sequelize-auto
