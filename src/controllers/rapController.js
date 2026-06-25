@@ -10,29 +10,64 @@ const layThongTinLichChieuHeThongRap = async (req, res) => {
     try {
         let { maHeThongRap } = req.query;
 
-        // Nếu người dùng không truyền maHeThongRap thì báo lỗi
         if (!maHeThongRap) {
             return response(res, "", "Vui lòng cung cấp maHeThongRap", 400);
         }
 
+        // Lấy dữ liệu hệ thống rạp và cụm rạp kèm lịch chiếu
         let data = await model.HeThongRap.findAll({
             where: { maHeThongRap: maHeThongRap },
             include: [{
                 model: model.CumRap,
-                as: 'CumRaps',
+                as: 'lstCumRap',
                 include: [{
                     model: model.LichChieu,
-                    as: 'LichChieus',
+                    as: 'lstLichChieu', // Giả sử alias trong init-models là lstLichChieu
                     include: [{
                         model: model.Phim,
-                        as: 'maPhim_Phim' // Kiểm tra tên alias chính xác trong init-models.js của bạn
+                        as: 'maPhim_Phim'
                     }]
                 }]
             }]
         });
 
-        // Dùng hàm response có sẵn của bạn để trả về
-        response(res, data, "Lấy thông tin lịch chiếu thành công", 200);
+        // Xử lý transform dữ liệu về cấu trúc yêu cầu
+        const result = data.map(heThong => ({
+            maHeThongRap: heThong.maHeThongRap,
+            tenHeThongRap: heThong.tenHeThongRap,
+            logo: heThong.logo,
+            lstCumRap: heThong.lstCumRap.map(cumRap => {
+                // Nhóm lịch chiếu theo phim
+                const phimMap = new Map();
+
+                cumRap.lstLichChieu.forEach(lich => {
+                    const phim = lich.maPhim_Phim;
+                    if (!phimMap.has(phim.maPhim)) {
+                        phimMap.set(phim.maPhim, {
+                            ...phim.toJSON(),
+                            lstLichChieuTheoPhim: []
+                        });
+                    }
+                    phimMap.get(phim.maPhim).lstLichChieuTheoPhim.push({
+                        maLichChieu: lich.maLichChieu,
+                        maRap: lich.maRap,
+                        tenRap: lich.tenRap,
+                        ngayChieuGioChieu: lich.ngayChieuGioChieu,
+                        giaVe: lich.giaVe
+                    });
+                });
+
+                return {
+                    maCumRap: cumRap.maCumRap,
+                    tenCumRap: cumRap.tenCumRap,
+                    diaChi: cumRap.diaChi,
+                    hinhAnh: cumRap.hinhAnh,
+                    danhSachPhim: Array.from(phimMap.values())
+                };
+            })
+        }));
+
+        response(res, result, "Lấy thông tin lịch chiếu thành công", 200);
 
     } catch (error) {
         console.log(error);
