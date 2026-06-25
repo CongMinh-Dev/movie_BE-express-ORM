@@ -1,7 +1,3 @@
-
-
-
-// yarn add sequelize
 import { Sequelize } from 'sequelize'
 
 import config from '../config/config.js'
@@ -16,8 +12,13 @@ const sequelize = new Sequelize(
         port: config.db_port
     })
 
+console.log("Debug Config:", {
+    database: config.db_database,
+    user: config.db_user,
+    dialect: config.db_dialect,
+    port: config.db_port
+});
 export default sequelize
 
 // yarn add sequelize-auto
-
 // yarn sequelize-auto -h localhost -d db_node41_food -u root -x 1234 -p 3306 --dialect mysql -o src/models -l esm
