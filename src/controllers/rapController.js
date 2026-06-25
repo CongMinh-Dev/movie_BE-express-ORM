@@ -14,33 +14,33 @@ const layThongTinLichChieuHeThongRap = async (req, res) => {
             return response(res, "", "Vui lòng cung cấp maHeThongRap", 400);
         }
 
-        // Lấy dữ liệu hệ thống rạp và cụm rạp kèm lịch chiếu
+        // Thay vì dùng alias cũ, hãy dùng đúng tên alias trong init-models.js
         let data = await model.HeThongRap.findAll({
             where: { maHeThongRap: maHeThongRap },
             include: [{
                 model: model.CumRap,
-                as: 'lstCumRap',
+                as: 'CumRaps', // Khớp với HeThongRap.hasMany(CumRap, { as: "CumRaps" ... })
                 include: [{
                     model: model.LichChieu,
-                    as: 'lstLichChieu', // Giả sử alias trong init-models là lstLichChieu 
+                    as: 'LichChieus', // Khớp với CumRap.hasMany(LichChieu, { as: "LichChieus" ... })
                     include: [{
                         model: model.Phim,
-                        as: 'maPhim_Phim'
+                        as: 'maPhim_Phim' // Khớp với LichChieu.belongsTo(Phim, { as: "maPhim_Phim" ... })
                     }]
                 }]
             }]
         });
 
-        // Xử lý transform dữ liệu về cấu trúc yêu cầu
+        // Xử lý transform (chỉnh sửa tên thuộc tính để khớp với cấu trúc JSON mong muốn)
         const result = data.map(heThong => ({
             maHeThongRap: heThong.maHeThongRap,
             tenHeThongRap: heThong.tenHeThongRap,
             logo: heThong.logo,
-            lstCumRap: heThong.lstCumRap.map(cumRap => {
-                // Nhóm lịch chiếu theo phim
+            // Đổi 'lstCumRap' thành 'CumRaps' để khớp với dữ liệu lấy từ DB
+            lstCumRap: heThong.CumRaps.map(cumRap => {
                 const phimMap = new Map();
 
-                cumRap.lstLichChieu.forEach(lich => {
+                cumRap.LichChieus.forEach(lich => {
                     const phim = lich.maPhim_Phim;
                     if (!phimMap.has(phim.maPhim)) {
                         phimMap.set(phim.maPhim, {

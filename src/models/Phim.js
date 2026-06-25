@@ -1,42 +1,37 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class nguoi_dung extends Model {
+export default class Phim extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    nguoi_dung_id: {
-      autoIncrement: true,
+    maPhim: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    email: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    mat_khau: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    ho_ten: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    tuoi: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    anh_dai_dien: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    ref_token: {
+    tenPhim: {
       type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    hinhAnh: {
+      type: DataTypes.STRING(500),
+      allowNull: true
+    },
+    hot: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    dangChieu: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    sapChieu: {
+      type: DataTypes.BOOLEAN,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'nguoi_dung',
+    tableName: 'Phim',
     timestamps: false,
     indexes: [
       {
@@ -44,7 +39,7 @@ export default class nguoi_dung extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "nguoi_dung_id" },
+          { name: "maPhim" },
         ]
       },
     ]

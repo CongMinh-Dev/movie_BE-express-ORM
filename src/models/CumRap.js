@@ -1,38 +1,37 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class hinh_anh extends Model {
+export default class CumRap extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    hinh_id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
+    maCumRap: {
+      type: DataTypes.STRING(50),
       allowNull: false,
       primaryKey: true
     },
-    ten_hinh: {
-      type: DataTypes.STRING(100),
+    tenCumRap: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    duong_dan: {
-      type: DataTypes.STRING(10000),
+    diaChi: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    mo_ta: {
-      type: DataTypes.STRING(6000),
+    hinhAnh: {
+      type: DataTypes.STRING(500),
       allowNull: true
     },
-    nguoi_dung_id: {
-      type: DataTypes.INTEGER,
+    maHeThongRap: {
+      type: DataTypes.STRING(50),
       allowNull: true,
       references: {
-        model: 'nguoi_dung',
-        key: 'nguoi_dung_id'
+        model: 'HeThongRap',
+        key: 'maHeThongRap'
       }
     }
   }, {
     sequelize,
-    tableName: 'hinh_anh',
+    tableName: 'CumRap',
     timestamps: false,
     indexes: [
       {
@@ -40,14 +39,14 @@ export default class hinh_anh extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "hinh_id" },
+          { name: "maCumRap" },
         ]
       },
       {
-        name: "nguoi_dung_id",
+        name: "maHeThongRap",
         using: "BTREE",
         fields: [
-          { name: "nguoi_dung_id" },
+          { name: "maHeThongRap" },
         ]
       },
     ]

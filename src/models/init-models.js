@@ -1,33 +1,27 @@
 import _sequelize from "sequelize";
 const DataTypes = _sequelize.DataTypes;
-import _binh_luan from  "./binh_luan.js";
-import _hinh_anh from  "./hinh_anh.js";
-import _luu_anh from  "./luu_anh.js";
-import _nguoi_dung from  "./nguoi_dung.js";
+import _CumRap from  "./CumRap.js";
+import _HeThongRap from  "./HeThongRap.js";
+import _LichChieu from  "./LichChieu.js";
+import _Phim from  "./Phim.js";
 
 export default function initModels(sequelize) {
-  const binh_luan = _binh_luan.init(sequelize, DataTypes);
-  const hinh_anh = _hinh_anh.init(sequelize, DataTypes);
-  const luu_anh = _luu_anh.init(sequelize, DataTypes);
-  const nguoi_dung = _nguoi_dung.init(sequelize, DataTypes);
+  const CumRap = _CumRap.init(sequelize, DataTypes);
+  const HeThongRap = _HeThongRap.init(sequelize, DataTypes);
+  const LichChieu = _LichChieu.init(sequelize, DataTypes);
+  const Phim = _Phim.init(sequelize, DataTypes);
 
-  hinh_anh.belongsToMany(nguoi_dung, { as: 'nguoi_dung_id_nguoi_dungs', through: luu_anh, foreignKey: "hinh_id", otherKey: "nguoi_dung_id" });
-  nguoi_dung.belongsToMany(hinh_anh, { as: 'hinh_id_hinh_anhs', through: luu_anh, foreignKey: "nguoi_dung_id", otherKey: "hinh_id" });
-  binh_luan.belongsTo(hinh_anh, { as: "hinh", foreignKey: "hinh_id"});
-  hinh_anh.hasMany(binh_luan, { as: "binh_luans", foreignKey: "hinh_id"});
-  luu_anh.belongsTo(hinh_anh, { as: "hinh", foreignKey: "hinh_id"});
-  hinh_anh.hasMany(luu_anh, { as: "luu_anhs", foreignKey: "hinh_id"});
-  binh_luan.belongsTo(nguoi_dung, { as: "nguoi_dung", foreignKey: "nguoi_dung_id"});
-  nguoi_dung.hasMany(binh_luan, { as: "binh_luans", foreignKey: "nguoi_dung_id"});
-  hinh_anh.belongsTo(nguoi_dung, { as: "nguoi_dung", foreignKey: "nguoi_dung_id"});
-  nguoi_dung.hasMany(hinh_anh, { as: "hinh_anhs", foreignKey: "nguoi_dung_id"});
-  luu_anh.belongsTo(nguoi_dung, { as: "nguoi_dung", foreignKey: "nguoi_dung_id"});
-  nguoi_dung.hasMany(luu_anh, { as: "luu_anhs", foreignKey: "nguoi_dung_id"});
+  LichChieu.belongsTo(CumRap, { as: "maCumRap_CumRap", foreignKey: "maCumRap"});
+  CumRap.hasMany(LichChieu, { as: "LichChieus", foreignKey: "maCumRap"});
+  CumRap.belongsTo(HeThongRap, { as: "maHeThongRap_HeThongRap", foreignKey: "maHeThongRap"});
+  HeThongRap.hasMany(CumRap, { as: "CumRaps", foreignKey: "maHeThongRap"});
+  LichChieu.belongsTo(Phim, { as: "maPhim_Phim", foreignKey: "maPhim"});
+  Phim.hasMany(LichChieu, { as: "LichChieus", foreignKey: "maPhim"});
 
   return {
-    binh_luan,
-    hinh_anh,
-    luu_anh,
-    nguoi_dung,
+    CumRap,
+    HeThongRap,
+    LichChieu,
+    Phim,
   };
 }

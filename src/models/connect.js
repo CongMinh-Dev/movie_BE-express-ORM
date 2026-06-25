@@ -21,3 +21,4 @@ export default sequelize
 
 // hoặc dùng:
 // npx sequelize-auto -h my-wordpress-db-1 -d movie -u react -x minh0967005146lxag -p 3306 --dialect mysql -o src/models -l esm
+// npx sequelize-auto -h 192.168.1.100 -d movie -u react -x minh0967005146lxag -p 3306 --dialect mysql -o src/models -l esm
