@@ -19,7 +19,7 @@ const layThongTinLichChieuHeThongRap = async (req, res) => {
             where: { maHeThongRap: maHeThongRap },
             include: [{
                 model: model.CumRap,
-                as: 'CumRaps', // Khớp với HeThongRap.hasMany(CumRap, { as: "CumRaps" ... })
+                as: 'CumRaps',
                 include: [{
                     model: model.LichChieu,
                     as: 'LichChieus', // Khớp với CumRap.hasMany(LichChieu, { as: "LichChieus" ... })

@@ -8,7 +8,7 @@ services:
       - .env
     networks:
       - movie_network
-
+# khai báo ở cấp độ root, cấp độ dùng chung
 networks:
   movie_network:
     external:
