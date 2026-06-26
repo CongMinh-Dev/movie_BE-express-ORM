@@ -1,5 +1,5 @@
 import express from 'express'
-import { layDanhSachPhim, layDanhSachPhimPhanTrang } from '../controllers/phimController'
+import { layDanhSachPhim, layDanhSachPhimPhanTrang } from '../controllers/phimController.js'
 
 
 
