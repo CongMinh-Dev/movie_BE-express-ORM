@@ -6,7 +6,7 @@ import { layDanhSachPhim, layDanhSachPhimPhanTrang } from '../controllers/phimCo
 const phimRouter = express.Router()
 
 
-phimRouter.get("/LayDanhSachPhimPhanTrang", layDanhSachPhim)
+phimRouter.get("/LayDanhSachPhim", layDanhSachPhim)
 phimRouter.get("/LayDanhSachPhimPhanTrang", layDanhSachPhimPhanTrang)
 
 
