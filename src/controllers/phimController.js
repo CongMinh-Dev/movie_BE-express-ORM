@@ -22,7 +22,7 @@ const layDanhSachPhimPhanTrang = async (req, res) => {
     try {
         let { page, pageSize } = req.query;
 
-        // Chuyển đổi sang kiểu số nguyên, mặc định trang 1 và 10 phần tử/trang
+        // Chuyển đổi sang kiểu số nguyên, mặc định trang 1 và 10 phần tử/trang.
         let pageNum = parseInt(page) || 1;
         let limit = parseInt(pageSize) || 10;
         let offset = (pageNum - 1) * limit;
